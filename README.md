@@ -35,9 +35,9 @@ The aim of this section is to explore speech emotion recognition techniques from
 
 ## Data
 
-**RAVDESS** contains 24 professional actors (12 female, 12 male), vocalizing two lexically-matched statements in a neutral North American accent. Speech includes calm, happy, sad, angry, fearful, surprise, and disgust expressions, and song contains calm, happy, sad, angry, and fearful emotions. Each expression is produced at two levels of emotional intensity (normal, strong), with an additional neutral expression.
+**RAVDESS** contains 24 professional actors (12 female, 12 male), vocalizing two lexically-matched statements in a neutral North American accent. Speech includes calm, happy, sad, angry, fearful, surprise, and disgust expressions, and song contains calm, happy, sad, angry, and fearful emotions. Each expression is produced at two levels of emotional intensity (normal, strong), with an additional neutral expression. [Dataset](https://www.kaggle.com/uwrfkaggler/ravdess-emotional-speech-audio/download)
 
-![image](https://raw.githubusercontent.com/aryasoni98/AI-Interview/master/Audio/Images/RAVDESS.png)
+![image](./Audio/Images/RAVDESS.png)
 
 ## Files
 
@@ -61,7 +61,7 @@ Notebooks provided on this repo:
 
 Classical approach for Speech Emotion Recognition consists in applying a series of filters on the audio signal and partitioning it into several windows (fixed size and time-step). Then, features from time domain (**Zero Crossing Rate, Energy** and **Entropy of Energy**) and frequency domain (**Spectral entropy, centroid, spread, flux, rolloff** and **MFCCs**) are extracted for each frame. We compute then the first derivatives of each of those features to capture frame to frame changes in the signal. Finally, we calculate the following global statistics on these features: *mean, median, standard deviation, kurtosis, skewness, 1% percentile, 99% percentile, min, max* and *range* and train a simple SVM classifier with rbf kernel to predict the emotion detected in the voice.
 
- ![image](https://raw.githubusercontent.com/aryasoni98/AI-Interview/master/Audio/Images/features_stats.png)
+ ![image](./Audio/Images/features_stats.png)
 
 SVM classification pipeline:
 - Voice recording
@@ -78,7 +78,7 @@ SVM classification pipeline:
 
 The main idea of a **Time Distributed Convolutional Neural Network** is to apply a rolling window (fixed size and time-step) all along the log-mel-spectrogram. Each of these windows will be the entry of a convolutional neural network, composed by four Local Feature Learning Blocks (LFLBs) and the output of each of these convolutional networks will be fed into a recurrent neural network composed by 2 cells LSTM (Long Short Term Memory) to learn the long-term contextual dependencies. Finally, a fully connected layer with *softmax* activation is used to predict the emotion detected in the voice.
 
-![image](https://raw.githubusercontent.com/aryasoni98/AI-Interview/master/Audio/Images/sound_pipeline.png)
+![image](./Audio/Images/sound_pipeline.png)
 
 TimeDistributed CNNs pipeline:
 - Voice recording
@@ -100,13 +100,12 @@ To limit overfitting during training phase, we split our data set into train (80
 
 ---
 
-<br>
 
 # Facial Emotion Recognition [Video]
 
 The aim of this section is to explore facial emotion recognition techniques from a live webcam video stream.
 
-![image](https://raw.githubusercontent.com/aryasoni98/AI-Interview/master/Images/Video.png)
+![image](https://raw.githubusercontent.com/aryasoni98/AI-Interview/master/Images/Audio.png)
 
 ## Data
 
@@ -114,7 +113,7 @@ The data set used for training is the **Kaggle FER2013** emotion recognition dat
 
 The data consists of 48x48 pixel grayscale images of faces. The faces have been automatically registered so that the face is more or less centered and occupies about the same amount of space in each image. The task is to categorize each face based on the emotion shown in the facial expression in to one of seven categories (0=Angry, 1=Disgust, 2=Fear, 3=Happy, 4=Sad, 5=Surprise, 6=Neutral).
 
-![alt text](https://raw.githubusercontent.com/aryasoni98/AI-Interview/master/Video/Images/Read_Images/bar_plot.png)
+![alt text](./Video/Images/Read_Images/bar_plot.png)
 
 ## Files
 
@@ -159,15 +158,15 @@ The model we have chosen is an **XCeption** model, since it outperformed the oth
 - Class weight balancing
 - And kept the best model
 
-![image](https://raw.githubusercontent.com/aryasoni98/AI-Interview/master/Video/Images/Read_Images/model_fit.png)
+![image](./Video/Images/Read_Images/model_fit.png)
 
 The XCeption architecture is based on DepthWise Separable convolutions that allow to train much fewer parameters, and therefore reduce training time on Colab's GPUs to less than 90 minutes.
 
-![image](Images/Read_Images/video_pipeline2.png)
+![image](./Video/Images/Read_Images/video_pipeline2.png)
 
 When it comes to applying CNNs in real life application, being able to explain the results is a great challenge. We can indeed  plot class activation maps, which display the pixels that have been activated by the last convolution layer. We notice how the pixels are being activated differently depending on the emotion being labeled. The happiness seems to depend on the pixels linked to the eyes and mouth, whereas the sadness or the anger seem for example to be more related to the eyebrows.
 
-![image](https://raw.githubusercontent.com/aryasoni98/AI-Interview/master/Video/Images/Read_Images/video_pipeline2.png)
+![image](./Video/Images/Read_Images/video_pipeline2.png)
 
 ## Performance
 
@@ -211,28 +210,15 @@ The treatment of the image is done through OpenCV
 
 *1. Read the initial image*
 
-![alt text](https://raw.githubusercontent.com/aryasoni98/AI-Interview/master/Video/Images/Read_Images/face_1.png)
+![alt text](./Video/Images/Read_Images/face_1.png)
 
 *2. Apply gray filter and find faces*
 
-![alt text](https://raw.githubusercontent.com/aryasoni98/AI-Interview/master/Video/Images/Read_Images/face_2.png)
+![alt text](./Video/Images/Read_Images/face_2.png)
 
 *3. Zoom and rescale each image*
 
-![alt text](https://raw.githubusercontent.com/aryasoni98/AI-Interview/master/Video/Images/Read_Images/face_5.png)
-
-## Sources
-- Visualization : https://github.com/JostineHo/mememoji/blob/master/data_visualization.ipynb
-- State of the art Architecture : https://github.com/amineHorseman/facial-expression-recognition-using-cnn
-- Eyes Tracking : https://www.pyimagesearch.com/2017/04/24/eye-blink-detection-opencv-python-dlib/
-- Face Alignment : https://www.pyimagesearch.com/2017/05/22/face-alignment-with-opencv-and-python/
-- C.Pramerdorfer,  and  M.Kampel.Facial  Expression  Recognition  using  Con-volutional  Neural  Networks:  State  of  the  Art.  Computer  Vision  Lab,  TU  Wien. https://arxiv.org/pdf/1612.02903.pdf
-- A Brief Review of Facial Emotion Recognition Based
-on Visual Information : https://www.mdpi.com/1424-8220/18/2/401/pdf
-- Going deeper in facial expression recognition using deep neural networks : https://ieeexplore.ieee.org/document/7477450
-- Emotional Deep Alignment Network paper : https://arxiv.org/abs/1810.10529
-- Emotional Deep Alignment Network github : https://github.com/IvonaTau/emotionaldan
-- HOG, Landmarks and SVM : https://github.com/amineHorseman/facial-expression-recognition-svm
+![alt text](./Video/Images/Read_Images/face_5.png)
 
 
 ---
@@ -252,7 +238,7 @@ on Visual Information : https://www.mdpi.com/1424-8220/18/2/401/pdf
  			<a href="https://github.com/aryasoni98">
  				<img src="https://img.icons8.com/nolan/64/github.png" width="64px" alt="" />
  			</a>
- 				<br /> 
+ 				<br />
 			 <a href="https://github.com/aryasoni98/AI-Interview/discussions">
  		   		Github Discussions
  	    	</a>
@@ -261,7 +247,7 @@ on Visual Information : https://www.mdpi.com/1424-8220/18/2/401/pdf
  			<a href="https://github.com/aryasoni98">
  				<img src="https://img.icons8.com/nolan/64/discord-logo.png" width="64px" alt="" />
  			</a>
- 				<br /> 
+ 				<br />
 			<a href="https://discord.gg/c9M6MZg6yJ">
  		   		Join Discord
  	    	</a>
